@@ -1,6 +1,9 @@
 int LDR_PIN = 34;
 int LED_PIN = 5;
 
+const int ON_THRESHOLD = 2500;
+const int OFF_THRESHOLD = 1500;
+
 void setup() {
   Serial.begin(115200);
   Serial.println("LDR Test Starting...");
@@ -11,12 +14,14 @@ void loop() {
   int value = analogRead(LDR_PIN);
   Serial.print("Light Level: ");
   Serial.println(value);
-  delay(500);
-
-  if (value > 2000) {
+  
+  if (value > ON_THRESHOLD) {
     digitalWrite(LED_PIN, HIGH);
   }
-  else {
+
+  if (value < OFF_THRESHOLD) {
     digitalWrite(LED_PIN, LOW);
   }
+  
+  delay(100);
 }
