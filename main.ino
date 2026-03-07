@@ -16,12 +16,15 @@ void loop() {
   Serial.println(value);
   
   if (value > ON_THRESHOLD) {
-    digitalWrite(LED_PIN, HIGH);
+    int brightness = map(value, 2500, 4095, 0, 255);
+    brightness = constrain(brightness, 0, 255);
+
+    analogWrite(LED_PIN, brightness);
   }
 
   if (value < OFF_THRESHOLD) {
-    digitalWrite(LED_PIN, LOW);
+    analogWrite(LED_PIN, 0);
   }
   
-  delay(100);
+  delay(50);
 }
